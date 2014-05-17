@@ -8,6 +8,7 @@ class MainController < UIViewController
 
     # Sets a top of 0 to be below the navigation control
     self.edgesForExtendedLayout = UIRectEdgeNone
+    self.title = "CMV02 Test Timer"
 
     rmq.stylesheet = MainStylesheet
     rmq(self.view).apply_style :root_view
@@ -16,10 +17,21 @@ class MainController < UIViewController
       start_timer
     end
 
+    rmq.append(UIButton, :stop).on(:tap) do
+      stop_timer
+    end
   end
 
   def start_timer
     self.current_timer = NSTimer.scheduledTimerWithTimeInterval(interval, target:self, selector: :tick, userInfo: {}, repeats:true)
+  end
+
+  def stop_timer
+    self.current_timer.invalidate
+    @elapsed = 0.0
+    rmq(:go).style do |st|
+      st.text = "GO"
+    end
   end
 
   def interval

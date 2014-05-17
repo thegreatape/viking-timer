@@ -17,4 +17,11 @@ class MainStylesheet < ApplicationStylesheet
     st.font = font.system(64)
   end
 
+  def stop(st)
+    st.frame = {t: 300, w: 200, h: 18}
+    st.centered = :horizontal
+    st.text = 'STOP'
+    st.color = color.red
+    st.font = font.system(64)
+  end
 end
